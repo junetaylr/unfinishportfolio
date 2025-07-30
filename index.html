@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>June Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div style="text-align:left;">june</div>
+        <div>menu</div>
+        <div style="text-align:right;">junetaylr</div>
+    </nav>
+
+    <!-- Matrix Section -->
+   <div id="matrixStrip">
+    <canvas id="matrixCanvas"></canvas>
+    <div id="hello world." style="display:none;
+         position:absolute;top:50%;left:50%;
+         transform:translate(-50%,-50%);
+         font-size:2rem;font-family:Overpass;">hello world.</div>
+</div>
+
+<section class="intro-section">
+  <div class="intro-left">
+    <h1>Hi, I'm June Taylr<br><span>Software Engineer</span></h1>
+  </div>
+  <div class="intro-right">
+    <p>
+      I design and build modern, high‑performance websites and applications 
+      that merge clean aesthetics with powerful functionality. My focus is on 
+      creating seamless user experiences, crafting custom solutions, and 
+      delivering visually striking results that stand out in the digital space.
+    </p>
+    
+    <p>Check out more work here: 
+  <a href="https://github.com/junetaylr" target="_blank">GitHub</a>
+</p>
+
+  </div>
+</section>
+
+
+<script>
+const canvas = document.getElementById('matrixCanvas');
+const ctx = canvas.getContext('2d');
+const welcome = document.getElementById('hello world.');
+
+const fontSize = 16;
+const chars = 'J U N E T A Y L R C R E A T O R F U T U R E C O D E 2 0 2 5 @ # $ % & * < >'.split(' ');
+let columns, drops;
+let state = 'matrix';
+let welcomeDuration = 3000; // ms
+
+function initMatrix() {
+    canvas.width = window.innerWidth;
+    canvas.height = 150;
+    columns = Math.floor(canvas.width / fontSize);
+    drops = Array(columns).fill(0);
+}
+initMatrix();
+
+function drawMatrix() {
+    ctx.fillStyle = 'rgba(0,0,0,0.08)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = fontSize + 'px Overpass';
+
+    let allDone = true;
+    for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize < canvas.height) allDone = false;
+        if (Math.random() > 0.875) drops[i]++;
+    }
+
+    if (allDone) {
+        state = 'hello world.';
+        welcome.style.display = 'block';
+        setTimeout(() => {
+            welcome.style.display = 'none';
+            initMatrix();
+            state = 'matrix';
+        }, welcomeDuration);
+    }
+}
+
+function loop() {
+    if (state === 'matrix') drawMatrix();
+    requestAnimationFrame(loop);
+}
+
+loop();
+window.addEventListener('resize', initMatrix);
+</script>
+
+<script src="script.js"></script>
+
+<footer class="site-footer">
+  <div class="footer-left">
+    <p>© 2025 junetaylr — All Rights Reserved</p>
+  </div>
+  <div class="footer-right">
+    <a href="https://www.linkedin.com/in/junetaylr/" target="_blank">LinkedIn</a>
+    <a href="https://junetaylr.com" target="_blank">Website</a>
+    <a href="mailto:junestaylr@gmail.com">Email</a>
+  </div>
+</footer>
+
+</body>
+</html>
+
